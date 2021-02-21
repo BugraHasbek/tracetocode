@@ -5,7 +5,7 @@ Welcome to tracetocode extension for VS Code.
 
 ## Features
 
-Create a software requuirement and trace it to a configuration item such as a class or a function or an entire library
+Create a software requirement and trace it to a configuration item such as a class or a function or an entire library
 
 ## Extension Settings
 
@@ -14,10 +14,5 @@ This extension contributes the following settings:
 * `tracetocode.createRequirement`: Create a software requirement
 * `tracetocode.listAllRequirements`: List all software requirement
 
-## Release Notes
-
-### 0.0.1
-
-Initial version which creates requirements
 
 **Enjoy!**

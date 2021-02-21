@@ -50,9 +50,17 @@ function createRequirement(){
 	
 }
 
+function listAllRequirements(){
+	window.showInformationMessage('Listing all software requirements!');
+}
+
 export function activate(context: ExtensionContext) {
 	let create = commands.registerCommand('tracetocode.createRequirement', createRequirement);
 	context.subscriptions.push(create);
+
+	let list = commands.registerCommand('tracetocode.listAllRequirements', listAllRequirements);
+	context.subscriptions.push(list);
+
 	initialize();
 }
 

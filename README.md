@@ -11,6 +11,7 @@ Create a software requuirement and trace it to a configuration item such as a cl
 This extension contributes the following settings:
 
 * `tracetocode.createRequirement`: Create a software requirement
+* `tracetocode.listAllRequirements`: List all software requirement
 
 ## Release Notes
 

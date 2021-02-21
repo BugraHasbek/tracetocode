@@ -16,8 +16,8 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "tracetocode.init",
-				"title": "Initialize tracetocode"
+				"command": "tracetocode.listAllRequirements",
+				"title": "List requirements"
 			},
 			{
 				"command": "tracetocode.createRequirement",

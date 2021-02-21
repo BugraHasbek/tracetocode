@@ -1,27 +1,55 @@
-import * as vscode from 'vscode';
-import { access, constants, mkdirSync, existsSync } from 'fs';
-const foldername = '.tracetocode';
-
+import {window, workspace, commands, ExtensionContext} from 'vscode';
+import { access, constants, readFile, mkdirSync, writeFile } from 'fs';
+const baseFolder = '.tracetocode';
+const reqFolder = 'requirements'
 function initialize(){
-	vscode.window.showInformationMessage('tracetocode active!');	
+	window.showInformationMessage('tracetocode active!');	
 }
 
 function createRequirement(){
-	if(!vscode.workspace.workspaceFolders){
-		vscode.window.showInformationMessage('A project folder has not been opened yet!');
+	if(!workspace.workspaceFolders){
+		window.showInformationMessage('A project folder has not been opened yet!');
 		return;
 	}
 
-	var absolutePath = vscode.workspace.workspaceFolders[0].uri.fsPath + '/' + foldername;
+	var absolutePath = workspace.workspaceFolders[0].uri.fsPath + '/' + baseFolder + '/' + reqFolder;
 	access(absolutePath, constants.F_OK, (err) => {
 		if(err){
-			mkdirSync(absolutePath);
+			mkdirSync(absolutePath, { recursive: true });
 		}
 	});
+
+	var idPath = workspace.workspaceFolders[0].uri.fsPath + '/' + baseFolder + '/' + 'id.txt';
+	var id = '1';
+	readFile(idPath, 'utf8', (err, data) => {
+		if(err){
+			window.showInformationMessage('Cannot read: ' + idPath);
+		} else {
+			id = data;
+			window.showInformationMessage('ID: ' + id);
+		}
+	});
+
+	window.showInputBox().then(value => {
+		if(value){
+			writeFile(absolutePath + '/' + id + '.txt', value, function(err) {
+				if(err)
+					window.showInformationMessage('Can not write requirement to file: ' + err);	
+			});
+
+			var idNumber = Number(id);
+
+			writeFile(idPath, idNumber + 1, function(err){
+				if(err)
+					window.showInformationMessage('Can not update id: ' + err);	
+			});
+		}
+	});
+	
 }
 
-export function activate(context: vscode.ExtensionContext) {
-	let create = vscode.commands.registerCommand('tracetocode.createRequirement', createRequirement);
+export function activate(context: ExtensionContext) {
+	let create = commands.registerCommand('tracetocode.createRequirement', createRequirement);
 	context.subscriptions.push(create);
 	initialize();
 }

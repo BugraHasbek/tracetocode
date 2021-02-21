@@ -1,4 +1,3 @@
-# tracetocode README
 ![Travis build status](https://travis-ci.com/BugraHasbek/tracetocode.svg?branch=master)
 
 Welcome to tracetocode extension for VS Code. 

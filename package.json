@@ -10,11 +10,15 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:tracetocode.createRequirement"
+		"onStartupFinished"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
+			{
+				"command": "tracetocode.init",
+				"title": "Initialize tracetocode"
+			},
 			{
 				"command": "tracetocode.createRequirement",
 				"title": "Create requirement"

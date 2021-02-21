@@ -16,6 +16,6 @@ This extension contributes the following settings:
 
 ### 0.0.1
 
-Initial version which creates requirement
+Initial version which creates requirements
 
 **Enjoy!**

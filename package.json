@@ -1,7 +1,7 @@
 {
 	"name": "tracetocode",
 	"displayName": "TraceToCode",
-	"description": "Trace Software Requirements to Source Code",
+	"description": "Trace software requirements to source code",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.53.0"
@@ -10,14 +10,14 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:tracetocode.helloWorld"
+		"onCommand:tracetocode.createRequirement"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "tracetocode.helloWorld",
-				"title": "Hello World"
+				"command": "tracetocode.createRequirement",
+				"title": "Create requirement"
 			}
 		]
 	},

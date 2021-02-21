@@ -21,12 +21,14 @@ function createRequirement(){
 
 	var idPath = workspace.workspaceFolders[0].uri.fsPath + '/' + baseFolder + '/' + 'id.txt';
 	var id = '1';
+	var idNumber;
 	readFile(idPath, 'utf8', (err, data) => {
 		if(err){
 			window.showInformationMessage('Cannot read: ' + idPath);
 		} else {
 			id = data;
-			window.showInformationMessage('ID: ' + id);
+			idNumber = Number(id) + 1;
+			id = String(idNumber);
 		}
 	});
 
@@ -39,7 +41,7 @@ function createRequirement(){
 
 			var idNumber = Number(id);
 
-			writeFile(idPath, idNumber + 1, function(err){
+			writeFile(idPath, idNumber, function(err){
 				if(err)
 					window.showInformationMessage('Can not update id: ' + err);	
 			});

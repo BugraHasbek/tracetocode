@@ -1,7 +1,7 @@
 import {window, workspace, commands, ExtensionContext} from 'vscode';
 import { access, constants, readFile, mkdirSync, writeFile } from 'fs';
 const baseFolder = '.tracetocode';
-const reqFolder = 'requirements'
+const reqFolder = 'requirements';
 function initialize(){
 	window.showInformationMessage('tracetocode active!');	
 }
@@ -35,15 +35,17 @@ function createRequirement(){
 	window.showInputBox().then(value => {
 		if(value){
 			writeFile(absolutePath + '/' + id + '.txt', value, function(err) {
-				if(err)
+				if(err){
 					window.showInformationMessage('Can not write requirement to file: ' + err);	
+				}
 			});
 
 			var idNumber = Number(id);
 
 			writeFile(idPath, idNumber, function(err){
-				if(err)
+				if(err){
 					window.showInformationMessage('Can not update id: ' + err);	
+				}
 			});
 		}
 	});

@@ -1,15 +1,16 @@
 import * as vscode from 'vscode';
 import {Requirement} from './requirement';
+import {readdirSync } from 'fs';
 
 export class RequirementToCodeProvider implements vscode.TreeDataProvider<Requirement> {
-    constructor(private workspaceRoot: string | undefined) {}
+    constructor(private requirementFolder: string | undefined) {}
 
     getTreeItem(element: Requirement): vscode.TreeItem {
         return element;
     }
 
     getChildren(element?: Requirement): Thenable<Requirement[]> {
-        if (!this.workspaceRoot) {
+        if (!this.requirementFolder) {
             vscode.window.showInformationMessage('No requirement in empty workspace');
             return Promise.resolve([]);
           }
@@ -20,8 +21,18 @@ export class RequirementToCodeProvider implements vscode.TreeDataProvider<Requir
     }
 
     private getRequirements(): Requirement[] {
-        vscode.window.showInformationMessage('Creating requirements in view');
-        let requirements: Requirement[] = [new Requirement("test", vscode.TreeItemCollapsibleState.None)];
+        let requirements: Requirement[] = [];
+
+        if(!this.requirementFolder){
+            vscode.window.showInformationMessage('Requirement folder is not provided');
+            return requirements;
+        }
+
+        var files = readdirSync(this.requirementFolder);
+        files.forEach(file => {
+            requirements.push(new Requirement(file, vscode.TreeItemCollapsibleState.None));
+        });
+        
         return requirements;
     }
 }

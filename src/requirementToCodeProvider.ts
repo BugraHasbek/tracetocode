@@ -5,6 +5,9 @@ import {readdirSync } from 'fs';
 export class RequirementToCodeProvider implements vscode.TreeDataProvider<Requirement> {
     constructor(private requirementFolder: string | undefined) {}
 
+    private _onDidChangeTreeData: vscode.EventEmitter<Requirement | undefined | null | void> = new vscode.EventEmitter<Requirement | undefined | null | void>();
+    readonly onDidChangeTreeData: vscode.Event<Requirement | undefined | null | void> = this._onDidChangeTreeData.event;
+
     getTreeItem(element: Requirement): vscode.TreeItem {
         return element;
     }
@@ -24,15 +27,21 @@ export class RequirementToCodeProvider implements vscode.TreeDataProvider<Requir
         let requirements: Requirement[] = [];
 
         if(!this.requirementFolder){
-            vscode.window.showInformationMessage('Requirement folder is not provided');
             return requirements;
         }
-
-        var files = readdirSync(this.requirementFolder);
-        files.forEach(file => {
-            requirements.push(new Requirement(file, vscode.TreeItemCollapsibleState.None));
-        });
+        
+        try {
+            var files = readdirSync(this.requirementFolder);
+            files.forEach(file => {
+                requirements.push(new Requirement(file, vscode.TreeItemCollapsibleState.None));
+            });    
+        } catch (error) {}
         
         return requirements;
+    }
+
+
+    refresh(): void {
+        this._onDidChangeTreeData.fire();
     }
 }

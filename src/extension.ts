@@ -6,6 +6,7 @@ const baseFolder = '.tracetocode';
 const reqFolder = 'requirements';
 
 var absolutePath : string | undefined = undefined;
+var treeDataProvider: RequirementToCodeProvider;
 
 function createRequirement(){
 	if(!workspace.workspaceFolders){
@@ -60,10 +61,12 @@ export function activate(context: ExtensionContext) {
 	
 	let create = commands.registerCommand('tracetocode.createRequirement', createRequirement);
 	context.subscriptions.push(create);
+	treeDataProvider = new RequirementToCodeProvider(absolutePath);
 
-	window.createTreeView('reqtocodeView', {
-		treeDataProvider: new RequirementToCodeProvider(absolutePath)
-	  });
+	window.createTreeView('reqtocodeView', {treeDataProvider});
+	commands.registerCommand('tracetocode.refreshEntry', () => 
+		treeDataProvider.refresh()
+	);
 }
 
 export function deactivate() {}

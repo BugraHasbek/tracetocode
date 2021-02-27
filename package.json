@@ -19,7 +19,15 @@
 			{
 				"command": "tracetocode.createRequirement",
 				"title": "Create requirement"
-			}
+			},
+			{
+                "command": "tracetocode.refreshEntry",
+                "title": "Refresh requirements",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            }
 		],
 		"views": {
 			"explorer": [
@@ -28,7 +36,16 @@
 				"name": "Requirements to Code"
 			  }
 			]
-		  }
+		  },
+		"menus": {
+		"view/title": [
+			{
+				"command": "tracetocode.refreshEntry",
+				"when": "view == reqtocodeView",
+				"group": "navigation"
+			}
+      ]
+    }
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

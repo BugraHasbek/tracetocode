@@ -5,10 +5,6 @@ import {RequirementToCodeProvider} from './requirementToCodeProvider';
 const baseFolder = '.tracetocode';
 const reqFolder = 'requirements';
 
-function initialize(){
-	window.showInformationMessage('tracetocode active!');	
-}
-
 function createRequirement(){
 	if(!workspace.workspaceFolders){
 		window.showInformationMessage('A project folder has not been opened yet!');
@@ -55,22 +51,13 @@ function createRequirement(){
 	
 }
 
-function listAllRequirements(){
-	window.showInformationMessage('Listing all software requirements!');
-}
-
 export function activate(context: ExtensionContext) {
 	let create = commands.registerCommand('tracetocode.createRequirement', createRequirement);
 	context.subscriptions.push(create);
 
-	let list = commands.registerCommand('tracetocode.listAllRequirements', listAllRequirements);
-	context.subscriptions.push(list);
-
-	window.createTreeView('tracetocodeView', {
+	window.createTreeView('reqtocodeView', {
 		treeDataProvider: new RequirementToCodeProvider(workspace.rootPath)
 	  });
-
-	initialize();
 }
 
 export function deactivate() {}

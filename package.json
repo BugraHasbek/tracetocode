@@ -17,10 +17,6 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "tracetocode.listAllRequirements",
-				"title": "List requirements"
-			},
-			{
 				"command": "tracetocode.createRequirement",
 				"title": "Create requirement"
 			}
@@ -28,7 +24,7 @@
 		"views": {
 			"explorer": [
 			  {
-				"id": "tracetocodeView",
+				"id": "reqtocodeView",
 				"name": "Requirements to Code"
 			  }
 			]

@@ -1,7 +1,10 @@
 import {window, workspace, commands, ExtensionContext} from 'vscode';
 import { access, constants, readFile, mkdirSync, writeFile } from 'fs';
+import {RequirementToCodeProvider} from './requirementToCodeProvider';
+
 const baseFolder = '.tracetocode';
 const reqFolder = 'requirements';
+
 function initialize(){
 	window.showInformationMessage('tracetocode active!');	
 }
@@ -62,6 +65,10 @@ export function activate(context: ExtensionContext) {
 
 	let list = commands.registerCommand('tracetocode.listAllRequirements', listAllRequirements);
 	context.subscriptions.push(list);
+
+	window.createTreeView('tracetocodeView', {
+		treeDataProvider: new RequirementToCodeProvider(workspace.rootPath)
+	  });
 
 	initialize();
 }

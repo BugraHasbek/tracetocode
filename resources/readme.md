@@ -1,0 +1,1 @@
+Requirement icon is courtesy of https://thenounproject.com/term/requirement/

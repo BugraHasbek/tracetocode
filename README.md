@@ -19,8 +19,11 @@ Create a software requirement and trace it to a configuration item such as a cla
 
 This extension contributes the following settings:
 
+### Commands
 * `tracetocode.createRequirement`: Create a software requirement
-* `tracetocode.listAllRequirements`: List all software requirement
+
+### Views
+* `reqtocodeView`: List all software requirements in explorer bar
 
 
 **Enjoy!**

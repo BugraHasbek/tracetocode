@@ -1,10 +1,9 @@
 import {window, workspace, commands, ExtensionContext} from 'vscode';
 import { access, constants, readFile, mkdirSync, writeFile } from 'fs';
+import {RequirementToCodeProvider} from './requirementToCodeProvider';
+
 const baseFolder = '.tracetocode';
-const reqFolder = 'requirements'
-function initialize(){
-	window.showInformationMessage('tracetocode active!');	
-}
+const reqFolder = 'requirements';
 
 function createRequirement(){
 	if(!workspace.workspaceFolders){
@@ -35,33 +34,30 @@ function createRequirement(){
 	window.showInputBox().then(value => {
 		if(value){
 			writeFile(absolutePath + '/' + id + '.txt', value, function(err) {
-				if(err)
+				if(err){
 					window.showInformationMessage('Can not write requirement to file: ' + err);	
+				}
 			});
 
 			var idNumber = Number(id);
 
 			writeFile(idPath, idNumber, function(err){
-				if(err)
+				if(err){
 					window.showInformationMessage('Can not update id: ' + err);	
+				}
 			});
 		}
 	});
 	
 }
 
-function listAllRequirements(){
-	window.showInformationMessage('Listing all software requirements!');
-}
-
 export function activate(context: ExtensionContext) {
 	let create = commands.registerCommand('tracetocode.createRequirement', createRequirement);
 	context.subscriptions.push(create);
 
-	let list = commands.registerCommand('tracetocode.listAllRequirements', listAllRequirements);
-	context.subscriptions.push(list);
-
-	initialize();
+	window.createTreeView('reqtocodeView', {
+		treeDataProvider: new RequirementToCodeProvider(workspace.rootPath)
+	  });
 }
 
 export function deactivate() {}

@@ -3,6 +3,7 @@
 	"displayName": "TraceToCode",
 	"description": "Trace software requirements to source code",
 	"version": "0.0.1",
+	"publisher": "BugraHasbek",
 	"engines": {
 		"vscode": "^1.53.0"
 	},
@@ -16,14 +17,18 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "tracetocode.listAllRequirements",
-				"title": "List requirements"
-			},
-			{
 				"command": "tracetocode.createRequirement",
 				"title": "Create requirement"
 			}
-		]
+		],
+		"views": {
+			"explorer": [
+			  {
+				"id": "reqtocodeView",
+				"name": "Requirements to Code"
+			  }
+			]
+		  }
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

@@ -33,7 +33,8 @@ export class RequirementToCodeProvider implements vscode.TreeDataProvider<Requir
         try {
             var files = readdirSync(this.requirementFolder);
             files.forEach(file => {
-                requirements.push(new Requirement(file, vscode.TreeItemCollapsibleState.None));
+                var nameWithoutExt = file.split('.').slice(0, -1).join();
+                requirements.push(new Requirement(nameWithoutExt, vscode.TreeItemCollapsibleState.None));
             });    
         } catch (error) {}
         
